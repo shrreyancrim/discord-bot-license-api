@@ -1,0 +1,40 @@
+I can see the bot is sending the correct data to the API:
+
+License Key: LM-2F7A9C-D3E8F1-H5K2L0
+Guild ID: 1375805219669147688
+API URL: https://56004625-324e-4c4d-9069-6ef3e2b7902d-00-2r3u50dsdz7z4.pike.replit.dev
+The 500 Internal Server Error is coming from your license verification API server itself, not from this bot. This means there's an issue on the API server side.
+
+Common causes:
+
+License doesn't exist - The license key LM-2F7A9C-D3E8F1-H5K2L0 may not be in the database
+Database not connected - The API server can't connect to MongoDB
+Missing API Key - The X-API-Key might not match what's configured on the API server
+Let me check your environment variables to make sure they're set correctly:
+
+
+Show less
+
+Executed echo "Checking environment variables..." && echo "LICENSE_KEY: ${LICENSE_KEY:0:10}..." && echo "LICENSE_API_URL: $LICENSE_API_URL" && echo "LICENSE_API_KEY: ${LICENSE_API_KEY:0:10}..." && echo "GUILD_ID: $GUILD_ID"
+
+Opened config.yml
+
+Diagnosed license API server issue (9 seconds)
+Perfect! I can see your configuration is correct. The bot is sending all the right information to the API. The 500 Internal Server Error is happening on your license verification API server, not in this bot.
+
+Here's what you need to check on your License API Server:
+1. Check if the database is connected
+The license API needs to connect to MongoDB to look up licenses. Make sure:
+
+MongoDB is running and accessible
+The connection string is correct in the API server's environment variables
+2. Verify the license exists in the database
+The license key LM-2F7A9C-D3E8F1-H5K2L0 needs to exist in your MongoDB database. Check:
+
+Is there a license with this key in your database?
+Is the license status set to "active"?
+3. Check the API server logs
+Look at the license API server's console/logs to see the actual error. It will show you exactly what's failing (database connection, missing license, etc.)
+
+4. Verify the API key matches
+The LICENSE_API_KEY in this bot must match what's configured in your license API server.
